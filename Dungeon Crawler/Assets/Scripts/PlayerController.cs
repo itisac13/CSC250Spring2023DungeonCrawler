@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     public GameObject northExit, southExit, eastExit, westExit;
-    public float movementSpeed = 80.0f;
+    public float movementSpeed;
 
     public Dungeon dungeon = MasterData.dungeon;
     public Player player = MasterData.player;
@@ -21,9 +21,11 @@ public class PlayerController : MonoBehaviour
     private bool eastOn = false;
     private bool westOn = false;
 
+    private bool fightScene;
+
     Vector3 center = new Vector3(0.0f, 0.5f, 0.0f);
 
-    public void DetermineExits()
+    private void DetermineExits()
     {
         this.northExit.SetActive(false);
         this.southExit.SetActive(false);
@@ -68,12 +70,21 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.fightScene = false;
+        int diceRoll = Random.Range(0, 100);
+        if (diceRoll < 33)
+        {
+            print("Fight scene");
+            this.fightScene = true;
+        }
+        // print(Random.Range(1, 4));
+        this.movementSpeed = 80.0f;
         this.rb = this.GetComponent<Rigidbody>();
         this.currentRoom = MasterData.player.getCurrentRoom();
         this.DetermineExits();
 
-        print(this.player.getCurrentRoom().getName());
-        print(this.currentRoom.getExitsString());
+        // print(this.player.getCurrentRoom().getName());
+        // print(this.currentRoom.getExitsString());
         this.start = true; // set it in start mode
         // this.rb = this.GetComponent<Rigidbody>();
 
@@ -118,10 +129,13 @@ public class PlayerController : MonoBehaviour
                 this.rb.angularVelocity = Vector3.zero;
                 this.start = false;
             }
-            
+
         }
         else if (!this.moving)
         {
+            
+            
+
             if (Input.GetKeyDown(KeyCode.UpArrow) && this.northOn)
             {
                 this.rb.AddForce(this.northExit.transform.position * movementSpeed);
@@ -146,6 +160,19 @@ public class PlayerController : MonoBehaviour
         
 
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (this.fightScene)
+        {
+            if (other.transform.parent.name == "Exit")
+            {
+                SceneManager.LoadScene("FightScene");
+                MasterData.lastExit = other.gameObject.name.ToString();
+                this.currentRoom.takeExit(this.player, MasterData.lastExit);
+            }
+        }
+    }
+    
     void OnTriggerExit(Collider other)
     {
         // This is called when the collider enters another collider marked as a trigger
@@ -154,9 +181,10 @@ public class PlayerController : MonoBehaviour
             
             MasterData.lastExit = other.gameObject.name.ToString();
             this.currentRoom.takeExit(this.player, MasterData.lastExit);
-            print("New room:" + this.player.getCurrentRoom().getName());
-            print(MasterData.room.test);
+            // print("New room:" + this.player.getCurrentRoom().getName());
+            // print(MasterData.room.test);
             SceneManager.LoadScene("DungeonRoom");
         }
     }
+    
 }

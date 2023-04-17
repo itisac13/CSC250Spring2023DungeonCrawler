@@ -350,6 +350,7 @@
 "Assets/Scripts/Backend/Player.cs"
 "Assets/Scripts/Backend/Room.cs"
 "Assets/Scripts/DungeonSetup.cs"
+"Assets/Scripts/Fight Scripts/FightController.cs"
 "Assets/Scripts/MasterData.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0
