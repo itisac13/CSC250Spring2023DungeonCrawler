@@ -10,7 +10,7 @@ public class MasterData
     public static string lastExit = string.Empty;
 
     
-    public static Player player = new Player("Bob");
+    public static Player player = new Player("PLAYER");
     public static Dungeon dungeon = new Dungeon(100, player);
     public static Room room = player.getCurrentRoom();
     // MasterData.dungeon.populateCSDepartment();
