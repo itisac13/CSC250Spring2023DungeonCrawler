@@ -355,6 +355,7 @@
 "Assets/Scripts/DungeonSetup.cs"
 "Assets/Scripts/Fight Scripts/FightController.cs"
 "Assets/Scripts/Fight Scripts/MonsterController.cs"
+"Assets/Scripts/HealthbarController.cs"
 "Assets/Scripts/MasterData.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0

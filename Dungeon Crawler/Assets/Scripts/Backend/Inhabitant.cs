@@ -4,6 +4,7 @@ public class Inhabitant
 {
     protected string name;
 
+    protected int maxHitpoints;
     protected int hitpoints;
     protected int armorClass;
     protected int damage;
@@ -13,7 +14,8 @@ public class Inhabitant
 
         Random rnd = new Random();
 
-        this.hitpoints = rnd.Next(20, 50);
+        this.maxHitpoints = rnd.Next(20, 50);
+        this.hitpoints = this.maxHitpoints;
         this.armorClass = rnd.Next(6, 14);
         this.damage = rnd.Next(5, 10);
 
@@ -40,10 +42,21 @@ public class Inhabitant
     }
     public int getHitpoints()
     { return this.hitpoints; }
+    public int getMaxHitpoints()
+    { return this.maxHitpoints; }
     public int getArmorClass()
     { return this.armorClass; }
     public int getDamage()
     { return this.damage; }
+
+    public void heal(int amount)
+    {
+        this.hitpoints += amount;
+        if (this.hitpoints > this.maxHitpoints)
+        {
+            this.hitpoints = this.maxHitpoints;
+        }
+    }
 
     public void resetStats()
     {

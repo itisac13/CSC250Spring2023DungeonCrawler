@@ -24,6 +24,8 @@ public class FightController : MonoBehaviour
 
     private Vector3 playerOriginalPosition;
     private Vector3 monsterOriginalPosition;
+
+    
     
     
 
@@ -56,12 +58,12 @@ public class FightController : MonoBehaviour
         if (this.yourTurn)
         {
             this.monsterobj.transform.position = this.monsterOriginalPosition;
-            this.playerobj.transform.position = new Vector3(0.0f, 0.5f, 0.0f);
+            // this.playerobj.transform.position = new Vector3(0.0f, 0.5f, 0.0f);
         }
         else
         {
             this.playerobj.transform.position = this.playerOriginalPosition;
-            this.monsterobj.transform.position = new Vector3(0.0f, 0.5f, 0.0f);
+            // this.monsterobj.transform.position = new Vector3(0.0f, 0.5f, 0.0f);
         }
         if (this.player.getHitpoints() <= 0)
         {
@@ -110,11 +112,7 @@ public class FightController : MonoBehaviour
         string monsterStats = this.monster.getData();
         this.stats.text += monsterStats + "\n";
 
-        if (this.gameEnded)
-        {
-            
-            return;
-        }
+        
 
 
         
